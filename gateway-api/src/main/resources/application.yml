@@ -1,0 +1,45 @@
+server:
+  port: 8080
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: ms-bill
+          uri: lb://ms-bill
+          predicates:
+            - Path=/bills/**
+        - id: users-service
+          uri: lb://users-service
+          predicates:
+            - Path=/users/**
+        - id: movies-service
+          uri: lb://movies-service
+          predicates:
+            - Path=/movies/**
+
+spring:
+  application:
+    name: api-gateway
+  security:
+    oauth2:
+      client:
+        provider:
+          api-gateway:
+            issuer-uri: http://localhost:8082/realms/digitalmedia
+        registration:
+          api-gateway:
+            provider: api-gateway
+            client-id: api-gateway
+            client-secret: lYihsBZCRdyXos6DTzSzIhw8FiCerIHG
+            authorization-grant-type: authorization_code
+            redirect-uri: 'http://localhost:8080/login/oauth2/code/keycloak'
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    enabled: true
