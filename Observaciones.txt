@@ -1,0 +1,47 @@
+OBSERVACIONES PARA LEVANTAR EL PROYECTO
+
+1. Orden de ejcución:
+
+- Micorservicio eureka-service
+- Microservicio api-gateway
+- Microservicio movies-service
+- Microservicio ms-bills
+- Microservicio users-service
+
+2. Usuarios 
+	
+Administrador -> * Username: admin
+			email:admin@mail.com
+
+Cliente -> * username: client
+		email: client@mail.com
+		
+		* username: Jhon
+		email: jhon@email.com
+
+		* username: Peter
+		email: peter@email.com
+		
+Provider -> * username: provider
+		email: provider@mail.com
+
+		* username: Michael
+		email: michael@email.com
+
+
+3. Descripcion
+
+Se realizo la creacion de 5 microservicios en el cual cuentan con seguridad cada uno de ellos a excepcion claramente del
+microservicio de Eureka, el api-gateway tiene la funcion de validar que cada peticion que se realice a travez de el 
+se encuentre autenticada y posteriormente sea redirigida al microservicio correspondiente en el cual tambien 
+se valida nuevaente su autenticacion y segun el controlador que la reciba se hara una validacion de permisos 
+del usuario para poder acceder e los recursos solicitado si es necesario.
+
+Tambien se hizo la implementacion del cliente Feign para la comunicacion realizada entre los microservicios
+de Bills y el de Users con las validaciones correspondientes.
+
+
+4. Nota: - Se hace la exportacion del archivo de configuracion de Keycloak el cual se encuentra en la raiz del proyecto
+	llamado file-realm-export.json
+	- No se realiza la dockerizacion del proyecto por motivo de tiempo ya que estaba presentando errors
+	cuando los queria levantar y no premitia el correcto funcionamiento hasta el momento del envio del proyecto.	
