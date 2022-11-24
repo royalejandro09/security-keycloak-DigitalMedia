@@ -1,5 +1,22 @@
 server:
   port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  security:
+    oauth2:
+      client:
+        provider:
+          api-gateway:
+            issuer-uri: http://localhost:8082/realms/digitalmedia
+        registration:
+          api-gateway:
+            provider: api-gateway
+            client-id: api-gateway
+            client-secret: lYihsBZCRdyXos6DTzSzIhw8FiCerIHG
+            authorization-grant-type: authorization_code
+            redirect-uri: 'http://localhost:8080/login/oauth2/code/keycloak'
   cloud:
     gateway:
       discovery:
@@ -20,24 +37,6 @@ server:
           uri: lb://movies-service
           predicates:
             - Path=/movies/**
-
-spring:
-  application:
-    name: api-gateway
-  security:
-    oauth2:
-      client:
-        provider:
-          api-gateway:
-            issuer-uri: http://localhost:8082/realms/digitalmedia
-        registration:
-          api-gateway:
-            provider: api-gateway
-            client-id: api-gateway
-            client-secret: lYihsBZCRdyXos6DTzSzIhw8FiCerIHG
-            authorization-grant-type: authorization_code
-            redirect-uri: 'http://localhost:8080/login/oauth2/code/keycloak'
-
 eureka:
   client:
     service-url:
