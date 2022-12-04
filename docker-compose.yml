@@ -18,7 +18,7 @@ services:
 
   eureka-service:
     build: ./eureka-service
-    image: eureka-service:1
+    image: ramv/eureka-service
     container_name: eureka-service
     networks:
       - digitalmedia
@@ -29,7 +29,7 @@ services:
     depends_on:
       - eureka-service
       - keycloak
-    image: api-gateway:1
+    image: ramv/api-gateway
     container_name: api-gateway
     ports:
       - '8080:8080'
@@ -65,7 +65,7 @@ services:
     build: ./ms-bills
     depends_on:
       - eureka-service
-    image: ms-bill:1
+    image: ramv/bills-service
     container_name: bills-service
     ports:
       - '8086:8086'
@@ -78,28 +78,26 @@ services:
     build: ./users-service
     depends_on:
       - eureka-service
-    image: users-service:1
+    image: ramv/users-service
     container_name: users-service
     ports:
       - '8088:8088'
     networks:
       - digitalmedia
     environment:
-      DB_URL: mongodb://mongodb:27017/moviesdb
       EUREKA_URL: http://eureka-service:8761/eureka
       KEYCLOAK_URL: http://keycloak:8082/
   movies-service:
     build: ./movies-api
     depends_on:
       - eureka-service
-    image: movies-service:1
+    image: ramv/movies-service
     container_name: movies-service
     ports:
       - '8085:8085'
     networks:
       - digitalmedia
     environment:
-      DB_URL: mongodb://mongodb:27017/moviesdb
       EUREKA_URL: http://eureka-service:8761/eureka
       KEYCLOAK_URL: http://keycloak:8082/
 
