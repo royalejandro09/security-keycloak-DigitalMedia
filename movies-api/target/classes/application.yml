@@ -8,6 +8,7 @@ spring:
       uri: mongodb://host.docker.internal:27017/moviesdb
   main:
     allow-circular-references: true
+
   security:
     client:
       provider:
@@ -42,5 +43,5 @@ springdoc:
 eureka:
   client:
     service-url:
-      defaultZone: eureka-service
+      defaultZone: http://eureka-service:8761/eureka/
     enabled: true
