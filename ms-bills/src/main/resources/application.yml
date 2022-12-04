@@ -9,8 +9,8 @@ spring:
       client:
         provider:
           ms-bills:
-            issuer-uri: http://localhost:8082/realms/digitalmedia
-            token-uri: http://localhost:8082/realms/digitalmedia/protocol/openid-connect/token
+            issuer-uri: ${KEYCLOAK_URL:http://keycloak:8082/}realms/digitalmedia
+            token-uri: ${KEYCLOAK_URL:http://keycloak:8082/}realms/digitalmedia/protocol/openid-connect/token
         registration:
           ms-bills:
             provider: ms-bills
