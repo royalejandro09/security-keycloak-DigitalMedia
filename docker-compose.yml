@@ -1,21 +1,21 @@
 version: "3.9"  # optional since v1.27.0
 
 services:
-  postgres:
-    image: postgres:latest
-    container_name: postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
-    ports:
-      - '5439:5439'
-    networks:
-      - digitalmedia
-    volumes:
-      - db:/var/lib/postgresql/data
-
+#  postgres:
+#    image: postgres:latest
+#    container_name: postgres
+#    restart: unless-stopped
+#    environment:
+#      POSTGRES_DB: keycloak
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: 1234
+#    ports:
+#      - '5439:5439'
+#    networks:
+#      - digitalmedia
+#    volumes:
+#      - db:/var/lib/postgresql/data
+#
   eureka-service:
     build: ./eureka-service
     image: ramv/eureka-service
@@ -37,69 +37,69 @@ services:
       - digitalmedia
     environment:
       EUREKA_URL: http://eureka-service:8761/eureka
-      KEYCLOAK_URL: http://keycloak:8082/
+#      KEYCLOAK_URL: http://keycloak:8082/
     restart: always
-  keycloak:
-    depends_on:
-      - postgres
-    container_name: keycloak
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: postgres
-      KC_DB_PASSWORD: 1234
-      KC_DB_USERNAME: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
-    image: quay.io/keycloak/keycloak:18.0.0
-    command:
-      - start-dev
-      - --import-realm
-    volumes:
-      - ./keycloak/digital-media-realm.json:/opt/keycloak/data/import/realm.json
-    ports:
-      - '8082:8082'
-    restart: unless-stopped
-    networks:
-      - digitalmedia
-  bills-service:
-    build: ./ms-bills
-    depends_on:
-      - eureka-service
-    image: ramv/bills-service
-    container_name: bills-service
-    ports:
-      - '8086:8086'
-    networks:
-      - digitalmedia
-    environment:
-      EUREKA_URL: http://eureka-service:8761/eureka
-      KEYCLOAK_URL: http://keycloak:8082/
-  users-service:
-    build: ./users-service
-    depends_on:
-      - eureka-service
-    image: ramv/users-service
-    container_name: users-service
-    ports:
-      - '8088:8088'
-    networks:
-      - digitalmedia
-    environment:
-      EUREKA_URL: http://eureka-service:8761/eureka
-      KEYCLOAK_URL: http://keycloak:8082/
-  movies-service:
-    build: ./movies-api
-    depends_on:
-      - eureka-service
-    image: ramv/movies-service
-    container_name: movies-service
-    ports:
-      - '8085:8085'
-    networks:
-      - digitalmedia
-    environment:
-      EUREKA_URL: http://eureka-service:8761/eureka
-      KEYCLOAK_URL: http://keycloak:8082/
+#  keycloak:
+#    depends_on:
+#      - postgres
+#    container_name: keycloak
+#    environment:
+#      KEYCLOAK_ADMIN: admin
+#      KEYCLOAK_ADMIN_PASSWORD: admin
+#      KC_DB: postgres
+#      KC_DB_PASSWORD: 1234
+#      KC_DB_USERNAME: postgres
+#      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+#    image: quay.io/keycloak/keycloak:18.0.0
+#    command:
+#      - start-dev
+#      - --import-realm
+#    volumes:
+#      - ./keycloak/digital-media-realm.json:/opt/keycloak/data/import/realm.json
+#    ports:
+#      - '8082:8080'
+#    restart: always
+#    networks:
+#      - digitalmedia
+#  bills-service:
+#    build: ./ms-bills
+#    depends_on:
+#      - eureka-service
+#    image: ramv/bills-service
+#    container_name: bills-service
+#    ports:
+#      - '8086:8086'
+#    networks:
+#      - digitalmedia
+#    environment:
+#      EUREKA_URL: http://eureka-service:8761/eureka
+#      KEYCLOAK_URL: http://keycloak:8082/
+#  users-service:
+#    build: ./users-service
+#    depends_on:
+#      - eureka-service
+#    image: ramv/users-service
+#    container_name: users-service
+#    ports:
+#      - '8088:8088'
+#    networks:
+#      - digitalmedia
+#    environment:
+#      EUREKA_URL: http://eureka-service:8761/eureka
+#      KEYCLOAK_URL: http://keycloak:8082/
+#  movies-service:
+#    build: ./movies-api
+#    depends_on:
+#      - eureka-service
+#    image: ramv/movies-service
+#    container_name: movies-service
+#    ports:
+#      - '8085:8085'
+#    networks:
+#      - digitalmedia
+#    environment:
+#      EUREKA_URL: http://eureka-service:8761/eureka
+#      KEYCLOAK_URL: http://keycloak:8082/
 
 networks:
   digitalmedia:

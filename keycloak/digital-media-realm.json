@@ -1,9 +1,9 @@
 {
   "id": "digitalMedia",
   "realm": "digitalmedia",
-  "displayName": "Digital_Media",
-  "displayNameHtml": "Digital_Media",
-  "notBefore": 1668892865,
+  "displayName": "Digital Media",
+  "displayNameHtml": "Digital Media",
+  "notBefore": 1670099710,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
   "refreshTokenMaxReuse": 0,
@@ -666,6 +666,7 @@
       "id": "0b79567f-fc90-4f84-bdc1-e28410ec939a",
       "clientId": "api-gateway",
       "rootUrl": "http://localhost:8080/",
+      "baseUrl": "/login/oauth2/code/keycloak",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
@@ -916,18 +917,19 @@
     {
       "id": "2407630f-c231-4213-a872-57eadcf7b348",
       "clientId": "microservicios",
-      "rootUrl": "http://localhost:8082/*",
-      "adminUrl": "",
+      "rootUrl": "http://localhost:8082",
+      "adminUrl": "http://localhost:8082",
+      "baseUrl": "/realms/digitalmedia/account/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "http://localhost:8082/*"
+        "http://localhost:8082/realms/digitalmedia/protocol/openid-connect/auth"
       ],
       "webOrigins": [
-        ""
+        "http://localhost:8082"
       ],
       "notBefore": 0,
       "bearerOnly": false,
@@ -1068,37 +1070,13 @@
             "type": "urn:microservicios:resources:default",
             "ownerManagedAccess": false,
             "attributes": {},
-            "_id": "b484da64-d544-4f73-a841-56ca68fc5ce0",
+            "_id": "bf731767-9f47-4d8b-abd8-fdbceb2cc881",
             "uris": [
               "/*"
             ]
           }
         ],
-        "policies": [
-          {
-            "id": "c9ed5cc1-d2d3-45cc-8962-bf37d82f0be5",
-            "name": "Default Policy",
-            "description": "A policy that grants access only for users within this realm",
-            "type": "js",
-            "logic": "POSITIVE",
-            "decisionStrategy": "AFFIRMATIVE",
-            "config": {
-              "code": "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
-            }
-          },
-          {
-            "id": "c4a8feff-e493-498d-a5dc-aeeede6aacbf",
-            "name": "Default Permission",
-            "description": "A permission that applies to the default resource type",
-            "type": "resource",
-            "logic": "POSITIVE",
-            "decisionStrategy": "UNANIMOUS",
-            "config": {
-              "defaultResourceType": "urn:microservicios:resources:default",
-              "applyPolicies": "[\"Default Policy\"]"
-            }
-          }
-        ],
+        "policies": [],
         "scopes": [],
         "decisionStrategy": "UNANIMOUS"
       }
@@ -1780,7 +1758,27 @@
   "enabledEventTypes": [],
   "adminEventsEnabled": false,
   "adminEventsDetailsEnabled": false,
-  "identityProviders": [],
+  "identityProviders": [
+    {
+      "alias": "github",
+      "internalId": "b6e2ada4-1b32-4da6-a74c-3a6458000361",
+      "providerId": "github",
+      "enabled": true,
+      "updateProfileFirstLoginMode": "on",
+      "trustEmail": false,
+      "storeToken": false,
+      "addReadTokenRoleOnCreate": false,
+      "authenticateByDefault": false,
+      "linkOnly": false,
+      "firstBrokerLoginFlowAlias": "first broker login",
+      "config": {
+        "syncMode": "IMPORT",
+        "clientSecret": "**********",
+        "clientId": "a88b486cc71615378a28",
+        "useJwksUrl": "true"
+      }
+    }
+  ],
   "identityProviderMappers": [],
   "components": {
     "org.keycloak.services.clientregistration.policy.ClientRegistrationPolicy": [
