@@ -12,12 +12,12 @@ services:
     ports:
       - '5439:5439'
     networks:
-      - local-keycloak
+      - digitalmedia
     volumes:
       - db:/var/lib/postgresql/data
 
   eureka-service:
-    build: ./eureka-serveice
+    build: ./eureka-service
     image: eureka-service:1
     container_name: eureka-service
     networks:
@@ -77,7 +77,6 @@ services:
   users-service:
     build: ./users-service
     depends_on:
-      - mongodb
       - eureka-service
     image: users-service:1
     container_name: users-service
@@ -92,7 +91,6 @@ services:
   movies-service:
     build: ./movies-api
     depends_on:
-      - mongodb
       - eureka-service
     image: movies-service:1
     container_name: movies-service

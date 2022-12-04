@@ -13,7 +13,7 @@ spring:
     client:
       provider:
         keycloak:
-          issuer-uri: http://localhost:8082/realms/digitalmedia
+          issuer-uri: ${KEYCLOAK_URL:http://keycloak:8082/}realms/digitalmedia
       registration:
         keycloak:
           provider: keycloak
@@ -43,5 +43,5 @@ springdoc:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-service:8761/eureka/
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
     enabled: true

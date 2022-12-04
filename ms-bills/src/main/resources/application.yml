@@ -39,17 +39,8 @@ spring:
       enabled: true
       path: /h2-console
 
-#eureka:
- # instance:
-  #  hostname: localhost
-  #  instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-   # instance-id: 127.0.0.1:8086
-  #client:
-   # service-url:
-    #  defaultZone: http://localhost:8761/eureka/
-    #enabled: true
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
     enabled: true
