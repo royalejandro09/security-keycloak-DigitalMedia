@@ -13,11 +13,11 @@ spring:
     oauth2:
       client:
         provider:
-          keycloak:
-            issuer-uri: http://localhost:8082/realms/digitalmedia
+          users-service:
+            issuer-uri: ${KEYCLOAK_URL:http://keycloak:8082/}realms/digitalmedia
         registration:
-          ms-bills:
-            provider: keycloak
+          users-service:
+            provider: users-service
             client-id: microservicios
             client-secret: 8wiOxewH0BE6A95mj3KPa7ugmxuw3mf1
             scope: openid
@@ -25,8 +25,8 @@ spring:
             redirect-uri: 'http://localhost:8088/*'
 
 dm:
-  keycloak:
-    serverUrl: http://localhost:8082/
+  users-service:
+    serverUrl: ${KEYCLOAK_URL:http://keycloak:8082/}
     realm: digitalmedia
     clientId: microservicios
     clientSecret: 8wiOxewH0BE6A95mj3KPa7ugmxuw3mf1
@@ -51,6 +51,6 @@ app:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
     enabled: true
 
